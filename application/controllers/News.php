@@ -71,7 +71,7 @@ class News extends CI_Controller
         // $this->session->sess_destroy();
 
         // Flash Data : Show only once
-        $this->session->set_flashdata('message', 'Record Saved Successfully!');
+        // $this->session->set_flashdata('message', 'Record Saved Successfully!');
 
         // Session Data : Mark as Flash : Also delete from session.
         $this->session->mark_as_flash('name');
@@ -85,17 +85,83 @@ class News extends CI_Controller
         
         $data['users'] = array('Ram', 'Shyam', 'Rahul');
         $data['allNews'] = $this->NewsModel->allNews();
+
+        $this->load->view('header', $data);
         $this->load->view('/news/index', $data);
+        $this->load->view('footer', $data);
+    }
+
+    /**
+     * Add Method
+     * 
+     * @return void
+     */
+    public function add()
+    {
+        $title = '"Scrap 3 Farm Laws Lest Kerala Starves": Unanimous Assembly Resolution';
+        $description = 'Thiruvananthapuram: The Kerala Legislative Assembly today unanimously passed a resolution seeking the withdrawal of all the three contentious agricultural laws enacted hurriedly by parliament in September. Raising the state\'s fears over the effects of prolonged tumult in the country\'s farm sector, the resolution said "Kerala could not bear the impact of such a situation", particularly amid the ravaging COVID-19 pandemic. The new farm laws have sparked a furious bout of protests among farmers of Punjab, Haryana, Uttar Pradesh, and other states that is yet to abate.';
+
+        $newsdata = array(
+            'title' => $title,
+            'description' => $description,
+            'active' => 0
+        );
+
+        $newsid = $this->NewsModel->insertNews($newsdata);
+        $this->session->set_flashdata('message', 'Record inserted successfully!');
+        redirect('news');
+    }
+
+    /**
+     * Edit Method
+     * 
+     * @param $id ID Of Record to edit.
+     * 
+     * @return void
+     */
+    public function edit($id)
+    {
+        $title = 'Scrap 3 Farm Laws Lest Kerala Starves';
+        $description = 'The Kerala Legislative Assembly today unanimously passed a resolution seeking the withdrawal of all the three contentious agricultural laws enacted hurriedly by parliament in September. Raising the state\'s fears over the effects of prolonged tumult in the country\'s farm sector, the resolution said "Kerala could not bear the impact of such a situation", particularly amid the ravaging COVID-19 pandemic. The new farm laws have sparked a furious bout of protests among farmers of Punjab, Haryana, Uttar Pradesh, and other states that is yet to abate.';
+
+        $newsdata = array(
+            'title' => $title,
+            'description' => $description,
+            'active' => 1
+        );
+
+        $newsid = $this->NewsModel->updateNews($id, $newsdata);
+        $this->session->set_flashdata('message', 'Record Updated successfully!');
+        redirect('news');
+    }
+
+    /**
+     * Delete Method
+     * 
+     * @param $id ID Of Record to edit.
+     * 
+     * @return void
+     */
+    public function delete($id)
+    {
+        $newsid = $this->NewsModel->deleteNews($id);
+        $this->session->set_flashdata('message', 'Record Deleted successfully!');
+        redirect('news');
     }
 
     /**
      * Details Method
      * 
+     * @param $id ID of Record
+     * 
      * @return void
      */
-    public function details()
+    public function details($id)
     {
-        $this->load->view('/news/details');
+        $news = $this->NewsModel->getNews($id);
+        $data['title'] = $news->title;
+        $data['news'] = $news;
+        $this->load->view('news/details', $data);
     }
 
 

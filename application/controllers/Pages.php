@@ -50,6 +50,26 @@ class Pages extends CI_Controller
         $this->load->view('/pages/'.$page, $data);
         $this->load->view('footer', $data);
     }
+
+    /**
+     * Index Method.
+     * 
+     * @param $page Name of Page
+     * 
+     * @return void
+     */
+    public function index($page = 'about')
+    {
+        if (!file_exists(APPPATH.'views/pages/'.$page.'.php')) {
+            show_404();
+        }
+
+        $data['title'] = ucfirst($page);
+
+        $this->load->view('header', $data);
+        $this->load->view('/pages/'.$page, $data);
+        $this->load->view('footer', $data);
+    }
 }
 
 ?>
