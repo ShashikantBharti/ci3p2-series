@@ -58,7 +58,7 @@ class Pages extends CI_Controller
      * 
      * @return void
      */
-    public function index($page = 'about')
+    public function index($page = 'index')
     {
         if (!file_exists(APPPATH.'views/pages/'.$page.'.php')) {
             show_404();

@@ -161,7 +161,10 @@ class News extends CI_Controller
         $news = $this->NewsModel->getNews($id);
         $data['title'] = $news->title;
         $data['news'] = $news;
+
+        $this->load->view('header', $data);
         $this->load->view('news/details', $data);
+        $this->load->view('footer', $data);
     }
 
 

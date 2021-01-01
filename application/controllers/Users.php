@@ -70,7 +70,7 @@ class Users extends CI_Controller
 
         // Show Validation Message
         $this->form_validation->set_error_delimiters(
-            '<div class="error">', '</div>'
+            '<div class="invalid-feedback">', '</div>'
         );
 
         if ($this->form_validation->run() == false) {
