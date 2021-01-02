@@ -1,3 +1,19 @@
+<?php 
+/**
+ * Header File
+ * 
+ * PHP Version 7
+ * 
+ * @category   CodeIgniter3
+ * @package    CEDCOSS
+ * @subpackage CodeIgniter3
+ * @author     Shashikant Bharti <surya.indian321@gmail.com>
+ * @license    https://cedcoss.com/ <CEDCOSS 2020>
+ * @link       http://localhost/training/ci3p2/
+ * @since      Version 1.0
+ */
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +26,7 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow bg-gradient">
         <div class="container">
             <a class="navbar-brand" href="#">CI3 Tutorial</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -33,20 +49,31 @@
                         <?php echo anchor('pages/view/features', 'Features', array('class'=>'nav-link')); ?>
                     </li>
                     <li class="nav-item">
-                        <?php echo anchor('pages/view/contact', 'Contact', array('class'=>'nav-link')); ?>
+                        <?php echo anchor('products/', 'Products', array('class'=>'nav-link')); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo anchor('pages/contact', 'Contact', array('class'=>'nav-link')); ?>
                     </li>
                     <li class="nav-item">
                         <?php echo anchor('news', 'News', array('class'=>'nav-link')); ?>
                     </li>
-
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <?php if (!$this->session->userdata('authenticated')) : ?>
                     <li class="nav-item">
                         <?php echo anchor('users/signup', 'Sign Up', array('class'=>'nav-link')); ?>
                     </li>
                     <li class="nav-item">
                         <?php echo anchor('users/login', 'Login', array('class'=>'nav-link')); ?>
                     </li>
+                <?php else: ?>
+                    <li class="nav-item">
+                        <?php echo anchor('dashboard', 'Dashboard', array('class'=>'nav-link')); ?>
+                    </li>
+                    <li class="nav-item">
+                        <?php echo anchor('users/logout', 'Logout', array('class'=>'nav-link')); ?>
+                    </li>
+                <?php endif; ?>
                 </ul>
             </div>
 

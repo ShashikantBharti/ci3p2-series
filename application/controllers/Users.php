@@ -40,6 +40,21 @@ class Users extends CI_Controller
         $this->load->model('UsersModel');
     }
 
+
+    /**
+     * Method to check if user is logged in or not.
+     * 
+     * @return void
+     */
+    private function _isLoggedIn()
+    {
+        if (!$this->session->userdata('authenticated')) {
+            $this->session->set_flashdata('message', 'You are <strong>not logged in</strong>!');
+            $this->session->set_flashdata('className', 'alert-danger');
+            redirect('users/login');
+        }
+    }
+
     /**
      * Sign Up Method.
      * 
@@ -62,7 +77,7 @@ class Users extends CI_Controller
             'mobile', 'Mobile Number', 'required|regex_match[/^[0-9]{10}$/]'
         );
         $this->form_validation->set_rules(
-            'password', 'Password', 'required'
+            'password', 'Password', 'required|min_length[8]'
         );
         $this->form_validation->set_rules(
             're-password', 'Confirm Password', 'required|matches[password]'
@@ -88,7 +103,8 @@ class Users extends CI_Controller
 
             $this->UsersModel->save($userdata);
 
-            $this->session->set_flashdata('message', 'Registration successfull!');
+            $this->session->set_flashdata('message', '<strong>Registration</strong> successfull!');
+            $this->session->set_flashdata('className', 'alert-success');
 
             redirect('users/login');
         }
@@ -101,11 +117,117 @@ class Users extends CI_Controller
      */
     public function login()
     {
+        if ($this->session->userdata('authenticated')) {
+            redirect('dashboard');
+        }
         $data['title'] = 'Login';
 
-        $this->load->view('header', $data);
-        $this->load->view('users/login', $data);
-        $this->load->view('footer', $data);
+        $this->form_validation->set_rules(
+            'email', 'Email ID', 'trim|required|valid_email'
+        );
+        $this->form_validation->set_rules(
+            'password', 'Password', 'required'
+        );
+
+        // Show Validation Message
+        $this->form_validation->set_error_delimiters(
+            '<div class="invalid-feedback">', '</div>'
+        );
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('header', $data);
+            $this->load->view('users/login', $data);
+            $this->load->view('footer', $data);
+        } else {
+            
+            $email = $this->security->xss_clean($this->input->post('email', true));
+            $password = md5($this->security->xss_clean($this->input->post('password', true)));
+            
+
+            $user = $this->UsersModel->login($email, $password);
+
+            if ($user) {
+                $userdata = array(
+                    'id' => $user->id,
+                    'firstName' => $user->first_name,
+                    'lastName' => $user->last_name,
+                    'email' => $user->email,
+                    'mobile' => $user->mobile,
+                    'authenticated' => true
+                );
+
+                $this->session->set_userdata($userdata);
+
+                redirect('dashboard');
+            } else {
+                $this->session->set_flashdata('message', '<strong>Email ID</strong> or <strong>Password</strong> is Incorrect!');
+                $this->session->set_flashdata('className', 'alert-danger');
+                redirect('users/login');
+            }
+
+        }
+    }
+
+    /**
+     * Logout function 
+     * 
+     * @return void
+     */
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('users/login');
+    }
+
+    /**
+     * Upload file method
+     * 
+     * @return void
+     */
+    public function upload()
+    {
+
+        $this->_isLoggedIn();
+        $data['title'] = 'Upload File';
+
+        $config['upload_path']          = './uploads/';
+        $config['allowed_types']        = 'gif|jpg|png|jpeg';
+        $config['max_size']             = 1000;
+
+        $this->load->library('upload', $config);
+
+        if (! $this->upload->do_upload('userFile')) {
+            if (isset($_FILES['userFile'])) {
+                $data['error'] = $this->upload->display_errors();
+            } else {
+                $data['error'] = '';
+            }
+
+            $this->load->view('header', $data);
+            $this->load->view('users/upload', $data);
+            $this->load->view('footer', $data);
+        } else {
+            $id = $this->session->userdata('id');
+
+            $user = $this->UsersModel->getUser($id);
+
+            if ($user->profile_photo and file_exists('uploads/'.$user->profile_photo)) {
+                unlink('uploads/'.$user->profile_photo);
+            }
+
+            $uploaddata = $this->upload->data();
+            $filename = $uploaddata['file_name'];
+
+            $userdata = array(
+                'profile_photo' => $filename
+            );
+
+            $this->UsersModel->update($id, $userdata);
+
+            $this->session->set_flashdata('message', 'File <strong>uploaded</strong> successfully!');
+            $this->session->set_flashdata('className', 'alert-success');
+            redirect('dashboard');
+        }
     }
 }
 

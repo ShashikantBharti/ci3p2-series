@@ -44,6 +44,54 @@ class UsersModel extends CI_model
         $this->db->insert('users', $userdata);
         return $this->db->insert_id();
     }
+
+    /**
+     * Method to Login user
+     * 
+     * @param $email    User Email
+     * @param $password User Password
+     * 
+     * @return void
+     */
+    public function login($email, $password)
+    {
+        $this->db->where('email', $email);
+        $this->db->where('password', $password);
+        $this->db->where('active', 1);
+        $result = $this->db->get('users');
+
+        if ($result->num_rows() == 1) {
+            return $result->row();
+        } 
+        return false;
+    }
+
+    /**
+     * Method to get single user
+     * 
+     * @param $id User id
+     * 
+     * @return userdata
+     */
+    public function getUser($id)
+    {
+        $this->db->where('id', $id);
+        return $this->db->get('users')->row();
+    }
+
+    /**
+     * Method to update user
+     * 
+     * @param $id       User ID
+     * @param $userdata User Data
+     * 
+     * @return bool
+     */
+    public function update($id, $userdata)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('users', $userdata);
+    }
 }
 
 ?>

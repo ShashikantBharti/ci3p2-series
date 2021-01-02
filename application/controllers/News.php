@@ -61,7 +61,7 @@ class News extends CI_Controller
             'email'=>'surya.indian321@gmail.com'
         );
 
-        $this->session->set_userdata($arr);
+        // $this->session->set_userdata($arr);
 
         // Unset Session
         // $this->session->unset_userdata('email');
@@ -83,7 +83,7 @@ class News extends CI_Controller
         // mark as temp : 
         $this->session->mark_as_temp('email', 5);
         
-        $data['users'] = array('Ram', 'Shyam', 'Rahul');
+        // $data['users'] = array('Ram', 'Shyam', 'Rahul');
         $data['allNews'] = $this->NewsModel->allNews();
 
         $this->load->view('header', $data);

@@ -1,1 +1,12 @@
-<h1>CI</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1><?php echo $title; ?></h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate rerum expedita officiis, saepe culpa voluptatum alias nam repudiandae quam temporibus. Libero tenetur odio eius nemo, ducimus repudiandae nihil eligendi architecto.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, sit reiciendis ipsam itaque exercitationem enim minima veniam aspernatur quo totam eos odit magnam? Sunt incidunt dolorum in eum quae sed deleniti ipsum, reiciendis ratione, sapiente, nobis voluptatem sint eligendi numquam asperiores? Laboriosam ab rem neque blanditiis nemo mollitia ipsum? Illum quisquam distinctio omnis accusantium aliquam culpa, eligendi consequuntur accusamus doloribus. Dolores neque officia, delectus recusandae accusamus repudiandae qui explicabo ex. Nulla iusto velit, enim eveniet, fugit ut accusamus sunt impedit quos officia vitae veritatis aliquam id dignissimos reiciendis, recusandae amet! Magni aliquid cupiditate quibusdam harum, consectetur molestiae inventore error ullam.</p>
+            <h2>Heading 2</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat impedit nam doloremque tempore perferendis consectetur architecto asperiores, saepe placeat itaque odio sit voluptas officiis, neque repellendus dolorem optio distinctio laboriosam autem sequi nobis quo aspernatur omnis assumenda. Suscipit architecto libero optio iure! Voluptatum numquam at quae quas consectetur sed veniam.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, non qui. Ab odio natus minus magnam omnis ipsum ullam laboriosam dolor unde! Repudiandae quo soluta iusto magnam delectus fugiat. Corrupti nam exercitationem optio architecto saepe incidunt est autem, amet, reprehenderit molestiae facere quisquam debitis aliquam vero eos! Officia ea velit maiores cumque accusamus deserunt dicta perspiciatis quis tenetur nobis? Qui ea quibusdam nesciunt eos sapiente natus aut suscipit voluptas provident sed recusandae exercitationem reprehenderit cupiditate, quidem atque deserunt, quaerat quas numquam quae optio architecto! Deleniti impedit tenetur maiores ut magni quidem totam? Eius odit dolorem similique cumque quis quod mollitia.</p>
+        </div>
+    </div>
+</div>

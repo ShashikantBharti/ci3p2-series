@@ -70,6 +70,28 @@ class Pages extends CI_Controller
         $this->load->view('/pages/'.$page, $data);
         $this->load->view('footer', $data);
     }
+    /**
+     * Index Method.
+     * 
+     * @return page
+     */
+    public function contact()
+    {
+        $data['title'] = 'Contact';
+
+        $this->load->view('header', $data);
+        $this->load->view('/pages/contact', $data);
+        $this->load->view('footer', $data);
+    }
+    /**
+     * Method to save contact form data.
+     * 
+     * @return void
+     */
+    public function contactSubmit()
+    {
+
+    }
 }
 
 ?>

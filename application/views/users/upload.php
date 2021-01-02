@@ -31,24 +31,16 @@
                 </div>
                 <div class="card-body">
                     <?php 
-                        echo form_open('users/login', array('id'=>'loginForm', 'class'=>'loginForm', 'name'=>'loginForm')); 
+                        echo form_open_multipart('users/upload', array('id'=>'loginForm', 'class'=>'loginForm', 'name'=>'loginForm')); 
                        
                         echo '<div class="form-group">';
-                        echo form_label('Email Id', 'email');
-                        $validEmail = empty(form_error('email'))?'':'is-invalid';
-                        echo form_input(array('id'=>'email', 'name'=>'email', 'class'=>"form-control $validEmail", 'placeholder'=>'Your Email Address', 'value'=>set_value('email')));
-                        echo form_error('email', '<div class="invalid-feedback">', '</div>');
-                        echo '</div>';
-
-                        echo '<div class="form-group mt-2">';
-                        echo form_label('Password', 'password');
-                        $validPassword = empty(form_error('password'))?'':'is-invalid';
-                        echo form_input(array('id'=>'password', 'name'=>'password', 'type'=>'password', 'class'=>"form-control $validPassword", 'placeholder'=>'Your Password', 'value'=>set_value('password')));
-                        echo form_error('email', '<div class="invalid-feedback">', '</div>');
+                        echo form_label('Choose File', 'file');
+                        echo form_input(array('id'=>'userFile', 'type'=>'file', 'name'=>'userFile', 'class'=>"form-control", 'value'=>set_value('userFile')));
+                        echo "<div class='text-danger'>$error</div>";
                         echo '</div>';
 
                         echo '<div class="form-group">';
-                        echo form_button(array('type'=>'submit', 'class'=>'btn btn-primary mt-3', 'name'=>'submit', 'value'=>'login'), 'Login');
+                        echo form_button(array('type'=>'submit', 'class'=>'btn btn-primary mt-3', 'name'=>'submit', 'value'=>'upload'), 'Upload File');
                         echo '</div>';
 
                         echo form_close();

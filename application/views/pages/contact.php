@@ -1,16 +1,52 @@
 <div class="container">
-    <h1><?php echo $title; ?></h1>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Temporibus ipsum aperiam dolores harum praesentium quasi libero dolorum numquam suscipit delectus molestiae fugiat laudantium, sit distinctio dolore odit vero tenetur dignissimos ea animi laboriosam accusamus sapiente. Nemo, tenetur dolore beatae saepe ad temporibus minima quo eius quod nobis voluptatum quam exercitationem sed itaque eligendi similique deserunt, accusamus id corporis. Illum quod dolores consectetur aspernatur nobis rerum ratione veniam sapiente, voluptas nostrum modi aut architecto officiis impedit ipsa esse odit quasi temporibus dolor laborum placeat consequatur ea labore corporis. Alias architecto sequi deleniti excepturi illo minus sed accusantium ratione modi vel placeat vero expedita quibusdam soluta exercitationem incidunt tempore magnam, animi dignissimos ducimus corrupti a harum reprehenderit illum! Laboriosam obcaecati ipsa omnis mollitia labore illum magnam aspernatur laudantium architecto blanditiis esse ea praesentium doloribus unde officiis neque soluta quis asperiores, provident minus eveniet dolores. Officiis in, tenetur doloremque dolor debitis quaerat dolores sapiente non rem sunt aperiam? Omnis corrupti sunt et est impedit distinctio quaerat nisi ipsa nesciunt cumque. Eius, neque ipsam provident corrupti animi eaque nulla ad dolorem impedit optio fuga? Quaerat ullam delectus, aspernatur molestias voluptas nostrum exercitationem quam laboriosam quia molestiae dolores ipsum amet? Itaque inventore quae corporis, molestias eius ullam repellat nam sit culpa unde deleniti maiores? Laboriosam laborum cum deserunt officiis delectus quaerat magni, consectetur hic illum incidunt sed. Adipisci, suscipit labore. Quo harum alias natus, unde veritatis, enim modi obcaecati in magnam cum blanditiis fuga iusto aliquid recusandae provident eveniet incidunt! Accusamus temporibus modi dolores rerum harum ad, laboriosam molestias voluptate quae magnam doloribus eum est illo doloremque recusandae! Vitae odit atque nulla quae inventore? Amet repellendus laboriosam omnis impedit alias? Optio velit iusto deserunt repellendus quia ab debitis atque excepturi qui corrupti harum impedit, odio sequi, nulla at! Illo deserunt voluptas, reprehenderit sequi eum dicta asperiores impedit necessitatibus totam, alias at nobis. Distinctio earum ipsa consectetur adipisci, eaque, fuga debitis quidem provident nisi nostrum quo obcaecati illum hic neque non blanditiis nihil id aperiam magni libero eligendi soluta enim impedit amet. Magni a nisi aliquam modi fugit? Eos libero laboriosam facere maxime, quibusdam quod consequuntur dolorem repellendus in, quisquam, harum numquam. Quae explicabo ex quam beatae optio fugit natus, eius excepturi amet non ratione quasi perspiciatis, deserunt reiciendis, asperiores eaque aliquid quaerat culpa ad earum officiis ea labore similique cupiditate. Ad excepturi illum aspernatur, minus animi possimus quasi voluptate amet minima eius enim autem, magni explicabo fugit sequi debitis quibusdam. Sunt animi sit, dolore labore excepturi distinctio consequuntur sint, assumenda voluptatum est hic. Suscipit libero consectetur voluptate tempore temporibus. Animi et, eum repellendus delectus sunt odit nostrum numquam modi, iusto voluptas eos adipisci, enim maiores consectetur! Maxime iusto possimus voluptate accusamus, pariatur voluptatum debitis et neque illum magni facilis aspernatur, alias labore temporibus corporis id quidem corrupti? Consequuntur facere aliquam modi ad, dignissimos nostrum quisquam officiis reprehenderit error quibusdam commodi quod doloremque vel totam mollitia dolor. Harum est deserunt aperiam quaerat veniam quam, itaque aut voluptatem eius! Repellendus iure alias dolor sunt quis tempore tempora!</p>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="card my-4 shadow">
+                <div class="card-header bg-primary bg-gradient">
+                    <div class="card-header-title text-white h4"><?php echo $title; ?> Us</div>
+                </div>
+                <div class="card-body">
+                <?php 
+                echo form_open('pages/contactSubmit', array('id'=>'contactForm', 'name'=>'contactForm'));
+
+                echo '<div class="form-group mt-3">';
+                echo form_label('Name', 'name');
+                $validName = empty(form_error('name'))?'':'is-invalid';
+                echo form_input(array('id'=>'name', 'name'=>'name', 'class'=>"form-control $validName", 'placeholder'=>'Your Name...', 'value'=>set_value('name')));
+                echo form_error('name', '<div class="invalid-feedback">', '</div>');
+                echo '</div>';
+
+                echo '<div class="form-group mt-3">';
+                echo form_label('Email Id', 'email');
+                $validEmail = empty(form_error('email'))?'':'is-invalid';
+                echo form_input(array('id'=>'email', 'type'=>'email', 'name'=>'email', 'class'=>"form-control $validEmail", 'placeholder'=>'Your Email ID...', 'value'=>set_value('email')));
+                echo form_error('email', '<div class="invalid-feedback">', '</div>');
+                echo '</div>';
+
+                echo '<div class="form-group mt-3">';
+                echo form_label('Mobile Number', 'mobile');
+                $validMobile = empty(form_error('mobile'))?'':'is-invalid';
+                echo form_input(array('id'=>'mobile', 'name'=>'mobile', 'class'=>"form-control $validMobile", 'placeholder'=>'Your Mobile Number...', 'value'=>set_value('mobile')));
+                echo form_error('mobile', '<div class="invalid-feedback">', '</div>');
+                echo '</div>';
+
+                echo '<div class="form-group mt-3">';
+                echo form_label('Your Message', 'message');
+                $validMessage = empty(form_error('message'))?'':'is-invalid';
+                echo form_textarea(array('id'=>'message', 'name'=>'message', 'class'=>"form-control $validMessage", 'rows'=>5,'placeholder'=>'Your message...','value'=>set_value('message')));
+                echo form_error('message', '<div class="invalid-feedback">', '</div>');
+                echo '</div>';
+
+                echo '<div class="form-group mt-3">';
+                echo form_submit(array('id'=>'submit', 'name'=>'submit', 'value'=>'Send Message', 'class'=>'btn btn-primary bg-gradient'));
+                echo '</div>';
+
+                echo form_close();
+                ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 </div>
-<?php 
-
-// echo $this->session->userdata('email');
-// echo '<br>';
-// echo $this->session->userdata('name');
-// echo '<br>';
-// echo $this->session->userdata('mobile');
-// echo '<br>';
-// echo $this->session->userdata('id');
-
-
-?>

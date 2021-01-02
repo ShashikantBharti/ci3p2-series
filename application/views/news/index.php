@@ -18,7 +18,7 @@ foreach ($allNews as $item) {
 
 // Create Link in CI
 // anchor('controller/method', 'value');
-echo anchor('user/signup', "Sign Up");
+echo anchor('users/signup', "Sign Up");
 ?>
     <table class="table">
         <div class="table-responsive">
@@ -28,7 +28,7 @@ echo anchor('user/signup', "Sign Up");
                         <th>#</th>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Active</th>
+                        <th>Status</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
