@@ -31,6 +31,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Pages extends CI_Controller
 {
+
+    /**
+     * Constructor for Page controller
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('PageModel');
+    }
     /**
      * View Method.
      * 
@@ -90,6 +99,48 @@ class Pages extends CI_Controller
      */
     public function contactSubmit()
     {
+        $data['title'] = 'Contact';
+        $this->form_validation->set_rules(
+            'name', 'Name', 'trim|required'
+        );
+        $this->form_validation->set_rules(
+            'email', 'Email', 'trim|required|valid_email'
+        );
+        $this->form_validation->set_rules(
+            'mobile', 'Mobile', 'trim|required|regex_match[/^[0-9]{10}$/]'
+        );
+        $this->form_validation->set_rules(
+            'message', 'Message', 'trim|required'
+        );
+
+        // $this->form_validation->set_error_delimiters(
+        //     '<div class="invalid-feedback">', '</div>'
+        // );
+
+        if ($this->form_validation->run() == false) {
+            $response = array(
+                'status'=>'error',
+                'message' => validation_errors()
+            );
+        } else {
+            $contactData = array(
+                'name'=>$this->input->post('name', true),
+                'email'=>$this->input->post('email', true),
+                'mobile'=>$this->input->post('mobile', true),
+                'message'=>$this->input->post('message', true)
+            );
+
+            $this->PageModel->insertContactData($contactData);
+
+            $response = array(
+                'status'=>'success',
+                'message' => 'Message sent <strong>successfully!</strong>'
+            );
+        }
+
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
 
     }
 }

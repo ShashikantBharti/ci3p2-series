@@ -229,6 +229,63 @@ class Users extends CI_Controller
             redirect('dashboard');
         }
     }
+
+    /**
+     * Method to change user password.
+     * 
+     * @return void
+     */
+    public function changePwd()
+    {
+        $this->_isLoggedIn();
+        $data['title'] = 'Change Password';
+
+        $this->form_validation->set_rules(
+            'oldPwd', 'Old Password', 'required|callback_checkOldPwd'
+        );
+        $this->form_validation->set_rules(
+            'newPwd', 'New Password', 'required|min_length[8]'
+        );
+        $this->form_validation->set_rules(
+            'confPwd', 'Confirm New Password', 'required|matches[newPwd]'
+        );
+
+        // Show Validation Message
+        $this->form_validation->set_error_delimiters(
+            '<div class="invalid-feedback">', '</div>'
+        );
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('header', $data);
+            $this->load->view('users/changePwd', $data);
+            $this->load->view('footer', $data);
+        } else {
+            $id = $this->session->userdata('id');
+            $newPwd = $this->input->post('newPwd');
+            $this->UsersModel->update($id, array('password'=>md5($newPwd)));
+            $this->session->set_flashdata('message', 'Password <strong>changed</strong> successfully!');
+            redirect('users/logout');
+        }
+    }
+
+    /**
+     * Method to check old password matches.
+     * 
+     * @param $oldPwd Old Password
+     * 
+     * @return void
+     */
+    public function checkOldPwd($oldPwd)
+    {
+        $id = $this->session->userdata('id');
+        $user = $this->UsersModel->getUser($id);
+
+        if ($user->password != md5($oldPwd)) {
+            $this->form_validation->set_message('checkOldPwd', "{field} doesn't match");
+            return false;
+        }
+        return true;
+    }
 }
 
 ?>

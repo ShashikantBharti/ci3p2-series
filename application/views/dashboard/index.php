@@ -56,7 +56,7 @@
                         <td>
                             <?php 
                                 echo anchor('', 'Edit Profile', array('class'=>'btn btn-sm btn-primary bg-gradient m-1'));
-                                echo anchor('', 'Change Password', array('class'=>'btn btn-sm btn-info text-white bg-gradient m-1'));
+                                echo anchor('users/changePwd', 'Change Password', array('class'=>'btn btn-sm btn-info text-white bg-gradient m-1'));
                                 echo anchor('users/logout', 'Logout', array('class'=>'btn btn-sm btn-danger m-1 bg-gradient'));
                             ?>
                         </td>

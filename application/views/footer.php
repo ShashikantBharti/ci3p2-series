@@ -54,5 +54,27 @@
                });
          }
     </script>
+    <script>
+          $(document).ready(function(){
+               $('#contactForm').on('submit', function(e) {
+                    e.preventDefault();
+                    let contactForm = $(this);
+                    $.ajax({
+                         url: contactForm.attr('action'),
+                         method: 'POST',
+                         data: contactForm.serialize(),
+                         success: function(response) {
+                              console.log(response.message);
+                              if (response.status == 'success') {
+                                   $('#message').html(`<div class="text-success">${response.message}</div>`);
+                              } else {
+                                   $('#message').html(`<div class="text-danger">${response.message}</div>`);
+                              }
+                              contactForm.trigger('reset');
+                         }
+                    });
+               });
+          });
+    </script>
 </body>
 </html>

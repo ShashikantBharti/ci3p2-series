@@ -45,6 +45,7 @@ class ProductsModel extends CI_model
      * 
      * @param $limit  Number of records
      * @param $offset Offset
+     * @param $search Search Data
      * @param $count  Something
      * 
      * @return array Products
